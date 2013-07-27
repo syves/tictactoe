@@ -21,30 +21,51 @@
   <h1>
     tic tac toe!
     </h1>
-  <table id="board">
-    <tr>
-      <td data-x="0" data-y="0">✖</td>
-      <td data-x="1" data-y="0"></td>
-      <td data-x="2" data-y="0">⦿</td>
-    </tr>
-    <tr>
-      <td data-x="0" data-y="1"></td>
-      <td data-x="1" data-y="1"></td>
-      <td data-x="2" data-y="1"></td>
-    </tr>
-    <tr>
-      <td data-x="0" data-y="2"></td>
-      <td data-x="1" data-y="2"></td>
-      <td data-x="2" data-y="2"></td>
-    </tr>
-  </table>
   <script>
-  var board = document.getElementById("board");
+  //create table element, set id "board", append to doc 
+  var board = document.createElement('table');
+  board.id = 'board';
+  document.body.appendChild(board);
+  //listen "click handler" to whole board
   board.addEventListener("click", function(event) {
-    var x = +event.target.getAttribute('data-x');
-    var y = +event.target.getAttribute('data-y');
-    console.log('clicked on:', [x, y])
+    //calling play f()
+    //event.target = "td" elemt
+    play(event.target.x, event.target.y);
   }, false);
+  //object to store gamestate-board
+  var state = [
+    [null, null, null],
+    [null, null, null],
+    [null, null, null]
+  ]
+  var next = 'x';
+  var play = function(x, y) {
+    state[y][x] = next;
+    //toggle between x, O
+    next = next === 'x' ? 'o' : 'x';
+  };
+  //draws table
+  var render = function() {
+    var y = 0;
+    while (y < 3) {
+      //tr= empty row
+      var tr = document.createElement('tr');
+      //inserts the row into table
+      board.appendChild(tr);
+      //creates 3 cells inside row, 
+      var x = 0;
+      while (x < 3) {
+        var td = document.createElement('td');
+        td.x = x;
+        td.y = y;
+        tr.appendChild(td);
+        x += 1;
+      }
+      y += 1;
+    }
+  };
+  
+  render();
   </script>
 </body>
 </html>
