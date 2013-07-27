@@ -23,20 +23,28 @@
     </h1>
   <table id="board">
     <tr>
-      <td>✖</td>
-      <td></td>
-      <td>⦿</td>
+      <td data-x="0" data-y="0">✖</td>
+      <td data-x="1" data-y="0"></td>
+      <td data-x="2" data-y="0">⦿</td>
     </tr>
     <tr>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td data-x="0" data-y="1"></td>
+      <td data-x="1" data-y="1"></td>
+      <td data-x="2" data-y="1"></td>
     </tr>
     <tr>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td data-x="0" data-y="2"></td>
+      <td data-x="1" data-y="2"></td>
+      <td data-x="2" data-y="2"></td>
     </tr>
   </table>
+  <script>
+  var board = document.getElementById("board");
+  board.addEventListener("click", function(event) {
+    var x = +event.target.getAttribute('data-x');
+    var y = +event.target.getAttribute('data-y');
+    console.log('clicked on:', [x, y])
+  }, false);
+  </script>
 </body>
 </html>
