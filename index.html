@@ -40,12 +40,17 @@
   ]
   var next = 'x';
   var play = function(x, y) {
+    if (state[y][x]) {
+      return;
+    }
     state[y][x] = next;
     //toggle between x, O
     next = next === 'x' ? 'o' : 'x';
+    render();
   };
   //draws table
   var render = function() {
+    board.innerHTML = '';
     var y = 0;
     while (y < 3) {
       //tr= empty row
@@ -58,6 +63,9 @@
         var td = document.createElement('td');
         td.x = x;
         td.y = y;
+        if (state[y][x]) {
+          td.appendChild(document.createTextNode(state[y][x]));
+        }
         tr.appendChild(td);
         x += 1;
       }
