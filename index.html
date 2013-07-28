@@ -41,6 +41,16 @@
     [null, null, null],
     [null, null, null]
   ]
+  var lines = [
+    [0,0, 1,0, 2,0],
+    [0,1, 1,1, 2,1],
+    [0,2, 1,2, 2,2],
+    [0,0, 0,1, 0,2],
+    [1,0, 1,1, 1,2],
+    [2,0, 2,1, 2,2],
+    [0,0, 1,1, 2,2],
+    [2,0, 1,1, 0,2]
+  ];
   var next = 'x';
   var play = function(x, y) {
     if (state[y][x]) {
@@ -50,6 +60,21 @@
     //toggle between x, O
     next = next === 'x' ? 'o' : 'x';
     render();
+    for (var i =0; i < lines.length; i+=1){
+      //for line in lines
+      var line = lines[i];
+      var x1 = line[0];
+      var y1 = line[1];
+      var x2 = line[2];
+      var y2 = line[3];
+      var x3 = line[4];
+      var y3 = line[5];
+      var result = winner(x1, y1, x2, y2, x3, y3);
+      if (result) {
+        alert(result + ' wins!');
+        break;
+      }
+    }
   };
   //draws table
   var render = function() {
@@ -75,7 +100,12 @@
       y += 1;
     }
   };
-  
+  var winner = function(x1,y1,x2,y2,x3,y3){
+   if (state[y1][x1] === state[y2][x2] && state[y1][x1] === state[y3][x3]) {
+     return state[y1][x1];
+   }
+   return null;
+  }
   render();
   </script>
 </body>
